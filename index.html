@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aval.AI - PCOS Wellness Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- For Tailwind CSS -->
+  <style>
+    /* Custom styles to make it look better */
+    .chat-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f58aae;
+      margin-top: 50px;
+    }
+
+    .chat-box {
+      height: 400px;
+      overflow-y: scroll;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .input-container {
+      display: flex;
+    }
+
+    .input-box {
+      width: 80%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .send-button {
+      width: 20%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .send-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1 class="text-center text-2xl font-bold">Aval.AI - PCOS Wellness</h1>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="input-container">
+      <input type="text" id="userInput" class="input-box" placeholder="Ask me anything about PCOS..." />
+      <button id="sendButton" class="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const sendButton = document.getElementById("sendButton");
+    const userInput = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+
+    sendButton.onclick = function() {
+      const userMessage = userInput.value.trim();
+      if (userMessage !== "") {
+        // Display user message in chat box
+        chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+        userInput.value = ""; // Clear input box
+
+        // Fetch response from Flask backend
+        fetch(`http://127.0.0.1:5000/get?user_input=${encodeURIComponent(userMessage)}`)
+          .then(response => response.json())
+          .then(data => {
+            const botMessage = data.response;
+            chatBox.innerHTML += `<p><strong>Bot:</strong> ${botMessage}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the latest message
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            chatBox.innerHTML += `<p><strong>Bot:</strong> Sorry, something went wrong.</p>`;
+          });
+      }
+    };
+
+    // Allow pressing "Enter" to send a message
+    userInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        sendButton.click();
+      }
+    });
+  </script>
+</body>
+</html>
