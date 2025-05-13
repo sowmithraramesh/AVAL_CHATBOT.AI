@@ -7,3 +7,13 @@ chatterbot-corpus==1.2.0
 spacy==3.7.2
 # Install the SpaCy English model
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
+Flask==2.3.2
+Flask-Cors==4.0.0
+chatterbot==1.0.5
+chatterbot-corpus==1.2.0
+spacy==3.7.2
+PyYAML==5.1
+# Install the SpaCy English model manually
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
