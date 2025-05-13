@@ -1,6 +1,9 @@
-Flask==2.3.2
 PyYAML==6.0.1
-Flask-Cors==4.0.0
 gunicorn==21.2.0
-chatterbot
-chatterbot_corpus
+Flask==2.3.2
+Flask-Cors==4.0.0
+chatterbot==1.0.5
+chatterbot-corpus==1.2.0
+spacy==3.7.2
+# Install the SpaCy English model
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
